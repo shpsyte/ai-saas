@@ -21,8 +21,10 @@ import { Input } from "@/components/ui/input";
 import { UserAvatar } from "@/components/user-avatar";
 
 import { formSchema } from "./constants";
+import { useRouter } from "next/navigation";
 
 const ConversationPage = () => {
+  const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,6 +51,8 @@ const ConversationPage = () => {
       form.reset();
     } catch (error: any) {
       console.error(error);
+    } finally {
+      router.refresh();
     }
   };
 

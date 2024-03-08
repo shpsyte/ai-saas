@@ -35,7 +35,6 @@ const MusicPage = () => {
       const response = await api.post("/video", {
         prompt: values.prompt,
       });
-      console.log(response);
 
       setVideo(response.data[0]);
 

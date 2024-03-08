@@ -39,7 +39,6 @@ const MusicPage = () => {
       const response = await api.post("/music", {
         prompt: values.prompt,
       });
-      console.log(response);
 
       setMusic(response.data.audio);
 
