@@ -12,15 +12,15 @@ import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 import { BotAvatar } from "@/components/bot-avatar";
+import { Empty } from "@/components/Empty";
 import { Heading } from "@/components/heading";
+import { Loader } from "@/components/Loader";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { UserAvatar } from "@/components/user-avatar";
 
 import { formSchema } from "./constants";
-import { Empty } from "@/components/Empty";
-import { Loader } from "@/components/Loader";
 
 const ConversationPage = () => {
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
