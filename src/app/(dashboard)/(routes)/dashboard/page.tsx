@@ -1,6 +1,4 @@
 "use client";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import {
   ArrowRight,
   Code,
@@ -11,6 +9,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import { cn } from "@/lib/utils";
+
+import { Card } from "@/components/ui/card";
 
 export default function DashboardPage() {
   const router = useRouter();

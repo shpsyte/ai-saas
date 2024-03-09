@@ -11,6 +11,7 @@ import * as z from "zod";
 
 import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Empty } from "@/components/Empty";
@@ -24,6 +25,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { formSchema } from "./constants";
 
 const CodePage = () => {
+  const modal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,7 +51,9 @@ const CodePage = () => {
       setMessages((c) => [...c, userMessage, response.data]);
       form.reset();
     } catch (error: any) {
-      console.error(error);
+      if (error?.response?.status === 403) {
+        modal.onOpen();
+      }
     }
   };
 

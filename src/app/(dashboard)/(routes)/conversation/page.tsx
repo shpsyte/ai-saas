@@ -22,8 +22,10 @@ import { UserAvatar } from "@/components/user-avatar";
 
 import { formSchema } from "./constants";
 import { useRouter } from "next/navigation";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 const ConversationPage = () => {
+  const modal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,7 +52,9 @@ const ConversationPage = () => {
       setMessages((c) => [...c, userMessage, response.data]);
       form.reset();
     } catch (error: any) {
-      console.error(error);
+      if (error?.response?.status === 403) {
+        modal.onOpen();
+      }
     } finally {
       router.refresh();
     }
