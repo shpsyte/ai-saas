@@ -66,21 +66,19 @@ export default function DashboardPage() {
       <div className="space-y-4 px-4 md:px-20 lg:px-32">
         {tools.map((tool, index) => {
           return (
-            <>
-              <Card
-                onClick={() => router.push(tool.href)}
-                key={tool.href}
-                className="flex cursor-pointer items-center justify-between border-black/5 p-4 transition hover:shadow-md"
-              >
-                <div className="flex items-center gap-x-4">
-                  <div className={cn("w-fit rounded-md p-2")}>
-                    <tool.icon className={cn("h-8 w-8", tool.color)} />
-                  </div>
-                  <div className="font-semibold">{tool.label}</div>
+            <Card
+              onClick={() => router.push(tool.href)}
+              key={tool.label}
+              className="flex cursor-pointer items-center justify-between border-black/5 p-4 transition hover:shadow-md"
+            >
+              <div className="flex items-center gap-x-4">
+                <div className={cn("w-fit rounded-md p-2")}>
+                  <tool.icon className={cn("h-8 w-8", tool.color)} />
                 </div>
-                <ArrowRight className="w-d h-5" />
-              </Card>
-            </>
+                <div className="font-semibold">{tool.label}</div>
+              </div>
+              <ArrowRight className="w-d h-5" />
+            </Card>
           );
         })}
       </div>

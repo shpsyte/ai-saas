@@ -3,13 +3,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageSquare } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import * as z from "zod";
 
 import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Empty } from "@/components/Empty";
@@ -21,8 +24,6 @@ import { Input } from "@/components/ui/input";
 import { UserAvatar } from "@/components/user-avatar";
 
 import { formSchema } from "./constants";
-import { useRouter } from "next/navigation";
-import { useProModal } from "@/hooks/use-pro-modal";
 
 const ConversationPage = () => {
   const modal = useProModal();
@@ -54,6 +55,11 @@ const ConversationPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         modal.onOpen();
+      } else {
+        toast.error("Failed to start conversation", {
+          duration: 5000,
+          position: "bottom-right",
+        });
       }
     } finally {
       router.refresh();

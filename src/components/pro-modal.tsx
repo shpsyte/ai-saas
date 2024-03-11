@@ -1,7 +1,9 @@
 "use client";
 
 import { Zap } from "lucide-react";
+import { useState } from "react";
 
+import { api } from "@/lib/api";
 import { useProModal } from "@/hooks/use-pro-modal";
 
 import {
@@ -18,6 +20,19 @@ import { Button } from "./ui/button";
 
 export default function ProModal() {
   const proModal = useProModal();
+  const [loading, setLoading] = useState(false);
+  const onSubscribe = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get("/stripe");
+
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
@@ -36,7 +51,13 @@ export default function ProModal() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button size="lg" variant="premium" className="w-full">
+            <Button
+              size="lg"
+              variant="premium"
+              className="w-full"
+              onClick={onSubscribe}
+              disabled={loading}
+            >
               Upgrade
               <Zap className="ml-2 h-4 w-4 fill-white" />
             </Button>

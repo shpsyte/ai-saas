@@ -13,8 +13,12 @@ import { Button } from "./ui/button";
 
 type FreeCounterProps = {
   apiLimitCounter: number;
+  isPro: boolean;
 };
-export default function FreeCounter({ apiLimitCounter }: FreeCounterProps) {
+export default function FreeCounter({
+  apiLimitCounter,
+  isPro = false,
+}: FreeCounterProps) {
   const { onOpen } = useProModal();
   const [mounted, setMounted] = useState(false);
 

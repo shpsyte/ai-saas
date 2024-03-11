@@ -26,13 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
-// add .env to the .gitignore file
-/.env
-.env.local
-.env.development
-.env*
-
 
 
 # vercel
